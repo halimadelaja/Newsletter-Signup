@@ -8,7 +8,7 @@ const app = express()
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("assets"));
 
-app.get("/", function(req, res){
+app.get("/", function(_req, res){
     res.sendFile(__dirname + "/signup.html")
 
 });
@@ -32,7 +32,7 @@ app.post("/", function(req, res){
         ]
     };
     const jsonData = JSON.stringify(data);// to convert to flatpack json
-    const url = "https://us13.api.mailchimp.com/3.0/lists/996352f07a";
+    const url = process.env.URL;
     const options = {
         method: "POST",
         AUTH : process.env.AUTH
@@ -55,7 +55,7 @@ app.post("/", function(req, res){
 });
 
 // POST REQUEST FOR FAILURE ROUTE/PAGE REDIRECT
-app.post("/failure", function(req, res){
+app.post("/failure", function(_req, res){
     res.redirect("/");
 
 });
